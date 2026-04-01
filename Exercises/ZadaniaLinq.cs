@@ -228,7 +228,10 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie13_GrupowanieZapisowWedlugPrzedmiotu()
     {
-        throw Niezaimplementowano(nameof(Zadanie13_GrupowanieZapisowWedlugPrzedmiotu));
+        return from z in DaneUczelni.Zapisy
+            join p in DaneUczelni.Przedmioty on z.PrzedmiotId equals p.Id
+            group z by p.Nazwa into g
+            select $"{g.Key}: {g.Count()}";
     }
 
     /// <summary>
