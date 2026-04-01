@@ -309,7 +309,12 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Wyzwanie01_StudenciZWiecejNizJednymAktywnymPrzedmiotem()
     {
-        throw Niezaimplementowano(nameof(Wyzwanie01_StudenciZWiecejNizJednymAktywnymPrzedmiotem));
+        return from s in DaneUczelni.Studenci
+            join z in DaneUczelni.Zapisy on s.Id equals z.StudentId
+            where z.CzyAktywny
+            group z by new { s.Imie, s.Nazwisko } into g
+            where g.Count() > 1
+            select $"{g.Key.Imie} {g.Key.Nazwisko}: {g.Count()}";
     }
 
     /// <summary>
