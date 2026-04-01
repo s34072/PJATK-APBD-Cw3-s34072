@@ -268,7 +268,9 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie15_ProwadzacyILiczbaPrzedmiotow()
     {
-        throw Niezaimplementowano(nameof(Zadanie15_ProwadzacyILiczbaPrzedmiotow));
+        return from pr in DaneUczelni.Prowadzacy
+            join p in DaneUczelni.Przedmioty on pr.Id equals p.ProwadzacyId into przedmiotyProwadzacego
+            select $"{pr.Imie} {pr.Nazwisko}: {przedmiotyProwadzacego.Count()}";
     }
 
     /// <summary>
